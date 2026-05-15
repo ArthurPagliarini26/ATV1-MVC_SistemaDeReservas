@@ -2,6 +2,7 @@ package controller;
 
 import model.entity.Usuario;
 import model.service.UsuarioService;
+
 import java.util.List;
 
 public class UsuarioController {
@@ -12,23 +13,76 @@ public class UsuarioController {
         this.service = service;
     }
 
-    public Usuario cadastrar(String nome, String cpf){
-        return service.cadastrar(nome, cpf);
+    public void cadastrar(String nome, String cpf) {
+
+        try {
+            Usuario usuario = service.cadastrar(nome, cpf);
+
+            System.out.println("Usuário cadastrado com sucesso!");
+            usuario.exibirDados();
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
-    public List<Usuario> listaTodos(){
-        return service.listarTodos();
+    public void listarTodos() {
+
+        try {
+
+            List<Usuario> usuarios = service.listarTodos();
+
+            for (Usuario u : usuarios) {
+                u.exibirDados();
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Erro ao listar usuários: " + e.getMessage());
+        }
     }
 
-    public Usuario buscarPorId(int id) {
-        return service.buscarPorId(id);
+    public void buscarPorId(int id) {
+
+        try {
+
+            Usuario usuario = service.buscarPorId(id);
+
+            usuario.exibirDados();
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
-    public Usuario atualizar(int id, String novoNome, String novoCpf ){
-        return service.atualizar(id, novoNome, novoCpf);
+    public void atualizar(int id, String novoNome, String novoCpf) {
+
+        try {
+
+            Usuario usuario = service.atualizar(id, novoNome, novoCpf);
+
+            System.out.println("Usuário atualizado com sucesso!");
+            usuario.exibirDados();
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
     public void remover(int id) {
-        service.remover(id);
+
+        try {
+
+            service.remover(id);
+
+            System.out.println("Usuário removido com sucesso!");
+
+        } catch (IllegalArgumentException e) {
+
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 }

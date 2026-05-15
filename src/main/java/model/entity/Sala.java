@@ -14,6 +14,9 @@ public class Sala {
         this.disponivel = true;
     }
 
+    public Sala(int id, int numero, int capaciade) {
+    }
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

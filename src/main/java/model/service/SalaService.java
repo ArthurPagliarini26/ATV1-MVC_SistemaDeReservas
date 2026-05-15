@@ -7,6 +7,10 @@ import java.util.HashMap;
 public class SalaService {
     private SalaRepository repository = new SalaRepository();
 
+    public SalaService(SalaRepository repository) {
+        this.repository = repository;
+    }
+
     public String cadastrar(int numero, int capaciade){
         if(capaciade <=0 ) return "Erro: A capacidade de sala deve ser maior que zero";
 

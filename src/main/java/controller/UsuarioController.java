@@ -28,7 +28,7 @@ public class UsuarioController {
         return service.atualizar(id, novoNome, novoCpf);
     }
 
-    public void remover(int id){
+    public void remover(int id) {
         service.remover(id);
     }
 }

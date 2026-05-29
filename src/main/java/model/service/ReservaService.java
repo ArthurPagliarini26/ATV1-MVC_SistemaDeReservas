@@ -6,15 +6,9 @@ import java.util.*;
 
 public class ReservaService {
 
-    private ReservaRepository reservaRepository;
-    private UsuarioRepository usuarioRepository;
-    private SalaRepository salaRepository;
-
-    public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, SalaRepository salaRepository) {
-        this.reservaRepository = reservaRepository;
-        this.usuarioRepository = usuarioRepository;
-        this.salaRepository = salaRepository;
-    }
+    private ReservaRepository reservaRepository = new ReservaRepository();
+    private UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private SalaRepository salaRepository = new SalaRepository();
 
     public void cadastrar(int usuarioId, int salaId, String data, String horario) {
 
@@ -44,14 +38,12 @@ public class ReservaService {
         Reserva reserva = new Reserva(0, usuario, sala, data, horario);
         sala.setDisponivel(false);
         reservaRepository.salvar(reserva);
-        System.out.println("Reserva criada com sucesso!");
     }
 
     public void listar() {
         HashMap<Integer, Reserva> reservas = reservaRepository.listarTodos();
         if (reservas.isEmpty()) {
-            System.out.println("Nenhuma reserva cadastrada.");
-            return;
+           throw new IllegalArgumentException("Nenhuma reserva cadastrada.");
         }
         for (Reserva r : reservas.values()) {
             r.exibirDados();
@@ -86,7 +78,6 @@ public class ReservaService {
         reserva.setData(novaData);
         reserva.setHorario(novoHorario);
         reservaRepository.salvar(reserva);
-        System.out.println("Reserva atualizada com sucesso!");
     }
 
     public void cancelar(int id) {
@@ -96,9 +87,8 @@ public class ReservaService {
             throw new IllegalArgumentException("Reserva já está cancelada!");
         }
 
-        reserva.setStatus("CANCELADA");
+        reservaRepository.cancelar(reserva);
         reserva.getSala().setDisponivel(true);
-        reservaRepository.salvar(reserva);
         System.out.println("Reserva cancelada! Sala liberada.");
     }
 }

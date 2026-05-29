@@ -4,15 +4,13 @@ import model.entity.Reserva;
 import model.service.ReservaService;
 
 public class ReservaController {
-    private ReservaService reservaService;
-
-    public ReservaController(ReservaService reservaService) {
-        this.reservaService = reservaService;
-    }
+    private ReservaService reservaService = new ReservaService();
 
     public void cadastrar(int usuarioId, int salaId, String data, String horario) {
         try {
             reservaService.cadastrar(usuarioId, salaId, data, horario);
+            System.out.println("Reserva cadastrada com sucesso!");
+
         } catch (IllegalArgumentException e) {
             System.out.println("Erro: " + e.getMessage());
         }

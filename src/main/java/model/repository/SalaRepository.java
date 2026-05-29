@@ -4,8 +4,8 @@ import model.entity.Sala;
 import java.util.HashMap;
 
 public class SalaRepository {
-    private HashMap<Integer, Sala> salas = new HashMap<>();
-    private int proximoId = 1;
+    static private HashMap<Integer, Sala> salas = new HashMap<>();
+    static private int proximoId = 1;
 
     public void salvar(Sala sala) {
         sala.setId(proximoId++);
@@ -18,9 +18,5 @@ public class SalaRepository {
 
     public HashMap<Integer, Sala> listarTodos() {
         return salas;
-    }
-
-    public boolean remover(int id) {
-        return salas.remove(id) != null;
     }
 }
